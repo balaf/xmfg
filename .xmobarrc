@@ -1,0 +1,21 @@
+Config { font = "xft:DejaVu Sans:pixelsize=11:antialias=true:hinting=true"
+       , bgColor = "#484640"
+       , fgColor = "#AFAF87"
+       , position = Top 
+       , commands = [ Run Weather "LGAV" ["-t","<skyCondition> <tempC>°C","-L","18","-H","29","--normal","#88CC83","--high","#BF4723","--low","lightblue"] 6000
+                    , Run Date "%a %b %_d %H:%M" "date" 20
+                    , Run CoreTemp ["-t", "<core0>°C :: <core1>°C", "-L", "56", "-H", "80", "--low", "lightblue", "--normal", "orange", "--high", "red"] 20
+                    , Run Network "eth0" ["-t", "<dev> <rx>/<tx>", "-L", "0", "-H","32","--normal","#88CC83","--high","#CC4C25"] 20
+                    , Run MultiCpu ["-L","3","-H","50","--normal","#88CC83","--high","#BF4723"] 10
+                    , Run CpuFreq ["-t","<cpu0>"] 10
+                    , Run Memory ["-t","Mem: <usedratio>%"] 10
+                    , Run Swap [] 10
+		    , Run DiskIO [("/", "/ <total>")] ["-l", "#88CC83", "--normal","orange","--high","red"] 10
+                    , Run StdinReader
+                    , Run Kbd [("us", "US"), ("gr", "GR")]
+                    ]
+       , sepChar = "%"
+       , alignSep = "}{"
+       , template = "%StdinReader% }{ %multicpu% - %cpufreq% :: %memory% - %swap% :: %diskio% :: %eth0% :: %coretemp% :: %LGAV% :: %date% :: %kbd%"
+       ,lowerOnStart = False
+       }
